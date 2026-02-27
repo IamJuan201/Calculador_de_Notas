@@ -1,4 +1,4 @@
-#Aqui defino colores (por añadir):
+#Aqui defino colores:
 import os
 AZUL = '\033[94m'
 CIAN = '\033[96m'
@@ -9,13 +9,22 @@ RESET = '\033[0m'
 NEGRITA = '\033[1m'
 
 #limpiar pantalla para que no aparezca lo anterior (por añadir)
+def limpiar():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-#Esta es la interfaz del programa:
-while True:
+#Para que no se limpie CALCULADOR DE NOTAS:
+def header():
+    limpiar()
     print(f"{CIAN}╔" + "═"*58 + "╗")
     print(f"║" + f"{RESET}{NEGRITA}CALCULADOR DE NOTAS".center(66) + f"{RESET}{CIAN}║")
     print(f"╚" + "═"*58 + "╝")
-    nombre = input(f"{RESET}{NEGRITA}Escribe tu nombre: {RESET}{VERDE}")
+
+header()
+nombre = input(f"{RESET}{NEGRITA}Escribe tu nombre: {RESET}{VERDE}")
+
+#Esta es la interfaz del programa:
+while True:
+    header()
 
     print(f"{RESET}{NEGRITA}Hola {RESET}{VERDE}{nombre}{RESET}{NEGRITA}! Bienvenido a tu calculadora de notas{RESET}")
     print(f"{CIAN}─{RESET}"*60)
@@ -28,13 +37,13 @@ while True:
 #Aqui se recogen los datos de notas y se hacen los procesos:
     try:
         if opcion == '1':
+            header()
             print(f"{RESET}{NEGRITA}Ingresa tus notas {ROJO}(0-5) {RESET}")
             print()
-
-            nota_1 = float(input(f"{NEGRITA}Digite su primera nota:{RESET}{VERDE} "))
+            nota_1 = float(input(f"{RESET}{NEGRITA}Digite su primera nota:{RESET}{VERDE} "))
             while nota_1<0 or nota_1>5:
                 print(f"{ROJO}ERROR! Solo se permiten numeros del 0 al 5{RESET}")
-                nota_1 = float(input(f"{NEGRITA}Digite su primera nota:{RESET}{VERDE} "))
+                nota_1 = float(input(f"{RESET}{NEGRITA}Digite su primera nota:{RESET}{VERDE} "))
 
             nota_2 = float(input(f"{RESET}{NEGRITA}Digite su segunda nota:{RESET}{VERDE} "))
             while nota_2<0 or nota_2>5:
@@ -49,37 +58,45 @@ while True:
             nota_min = 3.0
             promedio = (nota_1 + nota_2 + nota_3)/3
 
-            print(f"{RESET}{CIAN}─{RESET}"*60)
-            print(f"{VERDE}{nombre}{RESET}{NEGRITA} según tus notas: {RESET}{NEGRITA}")
+
+            header()
+            print(f"{VERDE}{nombre}{RESET}{NEGRITA} Según tus notas: {RESET}{NEGRITA}")
             print(nota_1)
             print(nota_2)
             print(nota_3)
             print()
             if promedio>=nota_min:
+
                 print(f"{RESET}{CIAN}─{RESET}"*60)
                 print(f"{NEGRITA}tu promedio es: {RESET}{VERDE}{round(promedio, 2)}{RESET}")
                 print()
-                print(f"{AMARILLO}Enhorabuena si pasaste :D{RESET}")
+                print(f"{VERDE}{NEGRITA}Enhorabuena si pasaste :D{RESET}")
                 print(f"{CIAN}─{RESET}"*60)
             elif promedio<nota_min:
                 print(f"{CIAN}─{RESET}"*60)
-                print(f"tu promedio es: {ROJO}{round(promedio, 2)}{RESET}")
+                print(f"{NEGRITA}tu promedio es: {ROJO}{round(promedio, 2)}{RESET}")
                 print()
-                print(f"{AMARILLO}Debes estudiar mas... no pasaste :({RESET}")
+                print(f"{ROJO}{NEGRITA}Debes estudiar mas... no pasaste :({RESET}")
                 print(f"{CIAN}─{RESET}"*60)
+            input(f"{NEGRITA}Presione ENTER para continuar")
 
 #Finalizar programa
         elif opcion == '2':
+            print()
             print(f"{VERDE}Gracias por usar la calculadora, Hasta pronto!{RESET}")
+            print()
+            print()
             break
         else:
-            print()
-            print()
             print(f"{ROJO}ERROR! Esa opcion no existe{RESET}")
+            print()
+            print()
+            input(f"{NEGRITA}Presiona ENTER para continuar")
 #Errores
     except ValueError:
+        print(f"{RESET}{ROJO}ERROR! Digite solo numeros, EJ: 4; 4.7; 3.0{RESET}")
         print()
         print()
-        print(f"{ROJO}ERROR! Digite solo numeros, EJ: 4; 4.7; 3.0{RESET}")
+        input(f"{NEGRITA}Presione ENTER para continuar")
 
     
